@@ -6,8 +6,8 @@ var redraw = document.getElementById("redraw");
 var undo = document.getElementById("undo");
 var redo = document.getElementById("redo");
 var validate = document.getElementById("validate");
-var edit = document.getElementById("editElement");
-var champ = document.getElementById("champ");
+var edit= document.getElementById("editElement");
+var champ=document.getElementById("champ");
 
 //
 var selected = null;
@@ -28,7 +28,7 @@ let style = [{
     'style': {
         'shape': 'ellipse',
         'width': 'mapData(weight, 40, 80, 20, 60)',
-        'content': 'data(id)',
+        'content': 'data(label)',
         'text-valign': 'center',
         //'text-outline-color': 'data(faveColor)',
         'background-color': 'blue',
@@ -155,7 +155,9 @@ var ur = cy.undoRedo();
 var id = 1;
 
 cy.on("tap", event => {
+   
     if (addActivated && event.target === event.cy) {
+        
         var node = ur.do("add", {
             data: { id, id: "Noeud " + id++ + "" },
             position: event.position
@@ -189,8 +191,15 @@ cy.on("select", function (event) {
 });
 
 add.addEventListener("click", event => {
-    addActivated = true;
-});
+    // addActivated = true;
+    var node = ur.do("add", {
+             data: { id, id: "Noeud " + id++ + "" },
+             position: event.position
+         });
+         node.select();
+         addActivated = false;
+ });
+ //Ajout d'un lien
 
 connect.addEventListener("click", event => {
     if (selected) {
@@ -199,6 +208,7 @@ connect.addEventListener("click", event => {
     connectActivated = true;
 });
 
+//Supprimer un noeud
 remove.addEventListener("click", event => {
     if (selected === null) return;
     if (selected.isNode() || selected.isEdge()) {
@@ -208,22 +218,24 @@ remove.addEventListener("click", event => {
 });
 
 
-
-$('.saveDiagram').click(function () {
+//Modification du label
+$('.saveDiagram').click(function() {
     eh.hide();
+    
     var diagramJson = cy.json();
     console.log(diagramJson)
-
+ 
     var formattedData = JSON.stringify(diagramJson.elements, null, '\t').replace(/"([^"]*)":/g, '$1:');
     /*console.log(diagramJson.elements)*/
     $('.savedJson').text(formattedData);
-});
-
-
-$('.editElement').click(function () {
-    cy.$(':selected').data('id', $(".name").val());
-});
-
+  });
+ 
+ 
+  $('.editElement').click(function() {
+     
+        cy.$(':selected').data('label', $(".name").val());
+  });
+ 
 redraw.addEventListener("click", event => {
     ur.do("layout", { options: layout });
 });
@@ -239,6 +251,15 @@ redo.addEventListener("click", event => {
 validate.addEventListener("click", event => {
     console.log('hasCycles', hasCycles(cy.elements()));
 });
+
+/*
+
+var node = cy.$(':selected');
+node.on('grab', function () {
+            var field = $("input[id="+ nodeId + "]");
+            this.css({content: field.val()});
+            field.hide();
+        });*/
 
 function hasCycles(elements) {
 

@@ -1,10 +1,10 @@
 let graph2 = [
-                { group:'nodes', data:{ id: 'G1', title: 'bdd'}},          
-                { group:'nodes', data:{ id: 'G11', title: 'introduction'}},
-                { group:'nodes', data:{ id: 'G12', title: 'installation'}},
-                { group:'nodes', data:{ id: 'G13', title: 'LCD'}},
+                { group:'nodes', data:{ id: 'G1',  label: 'noeud 1', title: 'bdd'}},          
+                { group:'nodes', data:{ id: 'G11', label: 'noeud 2', title: 'introduction'}},
+                { group:'nodes', data:{ id: 'G12', label: 'noeud 3', title: 'installation'}},
+                { group:'nodes', data:{ id: 'G13', label: 'noeud 4', title: 'LCD'}},
                 { group:'nodes', data:{ id: 'G14', title: 'LMD'}},
-                { group:'nodes', data:{ id: 'G15', title: 'LID'}},
+                { group:'nodes', data:{ id: 'G15', title: 'Lid'}},
                 { group:'nodes', data:{ id: 'G16', title: 'algèbre'}},
                 { group:'nodes', data:{ id: 'G17', title: 'synthèse'}},
                 
